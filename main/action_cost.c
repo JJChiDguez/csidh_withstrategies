@@ -4,12 +4,62 @@
 #include "fp.h"
 #include "edwards_curve.h"
 
+// A utility function to swap two elements
+void swap(uint64_t* a, uint64_t* b)
+{
+	uint64_t t = *a;
+	*a = *b;
+	*b = t;
+}
+
+/* This function takes last element as pivot, places
+   the pivot element at its correct position in sorted
+    array, and places all smaller (smaller than pivot)
+   to left of pivot and all greater elements to right
+   of pivot */
+int partition (uint64_t arr[], int low, int high)
+{
+	uint64_t pivot = arr[high];    // pivot
+	int i = (low - 1);  // Index of smaller element
+
+	int j;
+	for(j = low; j <= high- 1; j++)
+	{
+		// If current element is smaller than the pivot
+		if(arr[j] < pivot)
+		{
+			i++;    // increment index of smaller element
+			swap(&arr[i], &arr[j]);
+		}
+	}
+	swap(&arr[i + 1], &arr[high]);
+	return (i + 1);
+}
+
+/* The main function that implements QuickSort
+ arr[] --> Array to be sorted,
+  low  --> Starting index,
+  high  --> Ending index */
+void quicksort(uint64_t arr[], int low, int high)
+{
+    	if (low < high)
+	{
+		/* pi is partitioning index, arr[p] is now at right place */
+		int pi = partition(arr, low, high);
+
+		// Separately sort elements before
+		// partition and after partition
+		quicksort(arr, low, pi - 1);
+		quicksort(arr, pi + 1, high);
+	}
+}
+
 // Measuring the perfomance
 static uint64_t get_cycles()
 {
-   uint32_t lo, hi;
-   asm volatile("rdtsc":"=a"(lo),"=d"(hi));
-   return ((uint64_t)hi<<32) | lo;
+	uint32_t lo, hi;
+   	asm volatile("rdtsc":"=a"(lo),"=d"(hi));
+   	return ((uint64_t)hi<<32) | lo;
 };
 
 static uint8_t csidh(proj out, const uint8_t sk[], const proj in)
@@ -31,9 +81,9 @@ int main()
 	         sqr_min = 0xFFFFFFFFFFFFFFFF, sqr_max = 0, 
 	         mul_min = 0xFFFFFFFFFFFFFFFF, mul_max = 0;
 
-	float add_mean = 0, add_variance = 0,
-	      sqr_mean = 0, sqr_variance = 0,
-	      mul_mean = 0, mul_variance = 0;
+	float add_median = 0, add_mean = 0, add_variance = 0,
+	      sqr_median = 0, sqr_mean = 0, sqr_variance = 0,
+	      mul_median = 0, mul_mean = 0, mul_variance = 0;
 
 	uint64_t add_sample[its],
 	         sqr_sample[its],
@@ -100,8 +150,23 @@ int main()
 	add_variance = add_variance / ((float)its - 1.0);
 	sqr_variance = sqr_variance / ((float)its - 1.0);
 	mul_variance = mul_variance / ((float)its - 1.0);
-		
+	
+	quicksort(mul_sample, 0, its - 1);
+	quicksort(sqr_sample, 0, its - 1);
+	quicksort(add_sample, 0, its - 1);
+
+	add_median = (float)(add_sample[its/2] + add_sample[its/2 - 1]) / 2.0;
+	sqr_median = (float)(sqr_sample[its/2] + sqr_sample[its/2 - 1]) / 2.0;
+	mul_median = (float)(mul_sample[its/2] + mul_sample[its/2 - 1]) / 2.0;
+
 	printf("\x1b[01;33mIterations: %lu\x1b[0m\n\n", its);
+
+	printf("\x1b[33mMedian costs:\x1b[0m\n");
+	printf("\t %f additions,\n", add_median);
+	printf("\t\x1b[32m %f squarings,\x1b[0m\n", sqr_median);
+	printf("\t\x1b[31m %f multiplications.\x1b[0m\n", mul_median);
+
+	printf("\n");
 
 	printf("\x1b[33mAverage costs:\x1b[0m\n");
 	printf("\t %f additions,\n", add_mean);
