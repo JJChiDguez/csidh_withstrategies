@@ -4,7 +4,7 @@ This is joined work with:
 
         * Jesús-Javier Chi-Domínguez, and
         * Francisco Rodríguez-Henríquez
-
+    
         This work uses the fact that the action used in the CSIDH protocol 
         can be computed with
                         1. shortest differential addition chains,
@@ -19,7 +19,7 @@ This is joined work with:
                         1. the set of all odd integer number in {-b_i, ..., b_i} if b_i is odd, or
                         2. the set of all even integer number in {-b_i, ..., b_i} if b_i is even.
         Here, b_i is the number of degree-(l_i) isogenies to be computed.
-
+    
         [Notes]
         [1]
                 The Simba method implemented is based on the work of Michael Meyer, 
@@ -53,7 +53,8 @@ To compile the files you can do the following:
 First, you can use any version of gcc compiler (just set the variable CC as 
 an input of the Makefile [variable CC is optional, gcc is set by default]).
 
-# Testing a CSIDH protocol (key exchange protocol)
+## Testing a CSIDH protocol (key exchange protocol)
+
 [Compilation]
 
         [SIMBA method]
@@ -63,7 +64,7 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
                         make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
                 (Dummy-free approach and using two torsion points)
                         make csidh BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
-
+    
         [Our proposed strategy method]
                 (Using dummy operations and one torsion point)
                         make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
@@ -75,8 +76,8 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
 [Execution]
                 ./bin/csidh
 
+## Running-time: number of field operations
 
-# Running-time: number of field operations
 [Compilation]
 
         [SIMBA method]
@@ -86,7 +87,7 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
                         make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
                 (Dummy-free approach and using two torsion points)
                         make action_cost BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
-
+    
         [Our proposed strategy method]
                 (Using dummy operations and one torsion point)
                         make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
@@ -97,7 +98,8 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
 [Execution]
                 ./bin/action_cost
 
-# Running-time: number of clock cycles
+## Running-time: number of clock cycles
+
 [Compilation]
 
         [SIMBA method]
@@ -107,7 +109,7 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
                         make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
                 (Dummy-free approach and using two torsion points)
                         make action_timing BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
-
+    
         [Our proposed strategy method]
                 (Using dummy operations and one torsion point)
                         make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
@@ -121,3 +123,9 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
 
 # Clean
         make clean
+
+
+
+# Funding
+
+This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement No 804476).
