@@ -40,61 +40,66 @@ This is joined work with:
                 “Stronger and Faster Side-Channel Protections for CSIDH”, 
                 Progress in Cryptology - LATINCRYPT 2019. LNCS 11774 (2019), 173-193
 
-# ------------------------------------------------------------------------
-This C code implementation was perfomed by:
 
-        * Jesús-Javier Chi-Domínguez <jjchi@computacion.cs.cinvestav.mx, chidoys@gmail.com>, and
+
+This C code implementation was performed by:
+
+        * Jesús-Javier Chi-Domínguez <jesus.chidominguez@tuni.fi, chidoys@gmail.com, jjchi@computacion.cs.cinvestav.mx>, and
         * Francisco Rodríguez-Henríquez <francisco@cs.cinvestav.mx>.
 
-# ------------------------------------------------------------------------
 # C code
-To compile the files you can do the following:
 
-First, you can use any version of gcc compiler (just set the variable CC as 
-an input of the Makefile [variable CC is optional, gcc is set by default]).
+To compile the files you can do the following. First, you can use any version of gcc compiler (just set the variable CC as an input of the Makefile [variable CC is optional, gcc is set by default]).
 
 ## Testing a CSIDH protocol (key exchange protocol)
 
 [Compilation]
 
-        [SIMBA method]
-                (Using dummy operations and one torsion point)
-                        make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=SIMBA
-                (Using dummy operations and two torsion points)
-                        make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
-                (Dummy-free approach and using two torsion points)
-                        make csidh BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
-    
-        [Our proposed strategy method]
-                (Using dummy operations and one torsion point)
-                        make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
-                (Using dummy operations and two torsion points)
-                        make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=STRATEGY
-                (Dummy-free approach and using two torsion points)
-                        make csidh BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=STRATEGY
+```bash
+    [SIMBA method]
+            (Using dummy operations and one torsion point)
+                    make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=SIMBA
+            (Using dummy operations and two torsion points)
+                    make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
+            (Dummy-free approach and using two torsion points)
+                    make csidh BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
+
+    [Our proposed strategy method]
+            (Using dummy operations and one torsion point)
+                    make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
+            (Using dummy operations and two torsion points)
+                    make csidh BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=STRATEGY
+            (Dummy-free approach and using two torsion points)
+                    make csidh BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=STRATEGY
+```
 
 [Execution]
-                ./bin/csidh
+
+```bash
+./bin/csidh
+```
 
 ## Running-time: number of field operations
 
 [Compilation]
 
-        [SIMBA method]
-                (Using dummy operations and one torsion point)
-                        make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=SIMBA
-                (Using dummy operations and two torsion points)
-                        make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
-                (Dummy-free approach and using two torsion points)
-                        make action_cost BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
-    
-        [Our proposed strategy method]
-                (Using dummy operations and one torsion point)
-                        make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
-                (Using dummy operations and two torsion points)
-                        make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=STRATEGY
-                (Dummy-free approach and using two torsion points)
-                        make action_cost BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=STRATEGY
+```bash
+    [SIMBA method]
+            (Using dummy operations and one torsion point)
+                    make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=SIMBA
+            (Using dummy operations and two torsion points)
+                    make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
+            (Dummy-free approach and using two torsion points)
+                    make action_cost BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
+
+    [Our proposed strategy method]
+            (Using dummy operations and one torsion point)
+                    make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
+            (Using dummy operations and two torsion points)
+                    make action_cost BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=STRATEGY
+            (Dummy-free approach and using two torsion points)
+                    make action_cost BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=STRATEGY
+```
 [Execution]
                 ./bin/action_cost
 
@@ -102,30 +107,33 @@ an input of the Makefile [variable CC is optional, gcc is set by default]).
 
 [Compilation]
 
-        [SIMBA method]
-                (Using dummy operations and one torsion point)
-                        make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=SIMBA
-                (Using dummy operations and two torsion points)
-                        make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
-                (Dummy-free approach and using two torsion points)
-                        make action_timing BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
-    
-        [Our proposed strategy method]
-                (Using dummy operations and one torsion point)
-                        make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
-                (Using dummy operations and two torsion points)
-                        make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=STRATEGY
-                (Dummy-free approach and using two torsion points)
-                        make action_timing BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=STRATEGY
+```bash
+    [SIMBA method]
+            (Using dummy operations and one torsion point)
+                    make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=SIMBA
+            (Using dummy operations and two torsion points)
+                    make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
+            (Dummy-free approach and using two torsion points)
+                    make action_timing BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=SIMBA
+
+    [Our proposed strategy method]
+            (Using dummy operations and one torsion point)
+                    make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_1 APPROACH=STRATEGY
+            (Using dummy operations and two torsion points)
+                    make action_timing BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=STRATEGY
+            (Dummy-free approach and using two torsion points)
+                    make action_timing BITLENGTH_OF_P=512 TYPE=DUMMYFREE APPROACH=STRATEGY
+```
 
 [Execution]
                 ./bin/action_timing
 
-# Clean
-        make clean
+## Cleaning data
 
+```bash
+    make clean
+```
 
-
-# Funding
+## Funding
 
 This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement No 804476).
