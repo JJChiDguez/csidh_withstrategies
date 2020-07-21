@@ -42,7 +42,6 @@ void yISOG(proj Pk[], proj C, const proj P, const proj A, const uint8_t i)
 		fp_mul(Bz[0], Bz[0], Pk[j - 1][1]);
 		yADD(Pk[j], Pk[j - 1], P, Pk[j - 2]);	// [j + 1]P
 
-		FP_MUL_COMPUTED += 2;
 	};
 
 	mask = isequal(l, 3) ^ 1;		// If l = 3 then we keep with the current values of By[0] and Bz[0]. This ask is done in constant-time
@@ -62,27 +61,20 @@ void yISOG(proj Pk[], proj C, const proj P, const proj A, const uint8_t i)
 		{
 			fp_mul(tmp_0, tmp_0, A[0]);
 			fp_mul(tmp_1, tmp_1, tmp_d);
-			
-			FP_MUL_COMPUTED += 2;
 		};
 
-		FP_SQR_COMPUTED += 2;
 	};
 
 	for(j = 0; j < 3; j++)
 	{
 		fp_sqr(By[0], By[0]);
 		fp_sqr(Bz[0], Bz[0]);
-
-		FP_SQR_COMPUTED += 2;
 	};
 
 	fp_mul(C[0], tmp_0, Bz[0]);
 	fp_mul(C[1], tmp_1, By[0]);
 	fp_sub(C[1], C[0], C[1]);
 
-	FP_ADD_COMPUTED += 2;
-	FP_MUL_COMPUTED += 4;
 };// Cost ~ (3l + log(l) - 7)M + (l + 2log(l) + 3)S + (3l - 1)a
 
 /* ----------------------------------------------------------------------------- *
@@ -118,9 +110,6 @@ void yEVAL(proj R, const proj Q, const proj Pk[], const uint8_t i)
 		fp_sub(tmp_1, s_0, s_1);
 		fp_mul(R[0], R[0], tmp_0);
 		fp_mul(R[1], R[1], tmp_1);
-
-		FP_ADD_COMPUTED += 2;
-		FP_MUL_COMPUTED += 4;
 	};
 
 	fp_sqr(R[0], R[0]);
@@ -134,8 +123,5 @@ void yEVAL(proj R, const proj Q, const proj Pk[], const uint8_t i)
 	fp_sub(R[0], tmp_0, tmp_1);
 	fp_add(R[1], tmp_0, tmp_1);
 
-	FP_ADD_COMPUTED += 6;
-	FP_SQR_COMPUTED += 2;
-	FP_MUL_COMPUTED += 4;
 };// Cost : 2(l - 1)M + 2S + (3 + l)a
 

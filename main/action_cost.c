@@ -14,10 +14,6 @@ static uint64_t get_cycles()
 
 static uint8_t csidh(proj out, const uint8_t sk[], const proj in)
 {
-	FP_ADD_COMPUTED = 0;
-	FP_SQR_COMPUTED = 0;
-	FP_MUL_COMPUTED = 0;
-
 	if (!validate(in)) {
 		return 0;
 	};
@@ -59,12 +55,13 @@ int main()
         }
 
 		random_key(key);
+		init_counters();        // counters of additions, squarings, and multiplications are set as zero
 		assert(csidh(random_E, key, random_E));
 		
 		// ---
-		add_sample[i] = FP_ADD_COMPUTED;
-		sqr_sample[i] = FP_SQR_COMPUTED;
-		mul_sample[i] = FP_MUL_COMPUTED;
+		add_sample[i] = fpadd;
+		sqr_sample[i] = fpsqr;
+		mul_sample[i] = fpmul;
 
 		/**************************************/
 		if(add_min > add_sample[i])

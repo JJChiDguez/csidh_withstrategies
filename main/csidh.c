@@ -13,10 +13,6 @@ static uint64_t get_cycles()
 
 static uint8_t csidh(proj out, const uint8_t sk[], const proj in)
 {
-	FP_ADD_COMPUTED = 0;
-	FP_SQR_COMPUTED = 0;
-	FP_MUL_COMPUTED = 0;
-
 	if (!validate(in)) {
 		return 0;
 	};
@@ -70,6 +66,7 @@ int main()
 	random_key(sk_alice);
 	printf_key(sk_alice, "sk_alice");
 
+	init_counters();	// counters of additions, squarings, and multiplications are set as zero
 	proj E_alice;
 	c0 = get_cycles();
 	assert(csidh(E_alice, sk_alice, E));
@@ -77,20 +74,21 @@ int main()
 	fp_print(E_alice[0], NUMBER_OF_WORDS, 0, "E_alice_a ");
 	fp_print(E_alice[1], NUMBER_OF_WORDS, 0, "E_alice_ad");
 	printf("clock cycles: %3.03lf\n", ( 1.0 * (c1 - c0)) / (1000000.0));
-	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n\n", FP_MUL_COMPUTED, FP_SQR_COMPUTED, FP_ADD_COMPUTED);
+	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n\n", fpmul, fpsqr, fpadd);
 
 	// Bob: random key generation
 	random_key(sk_bob);
 	printf_key(sk_bob, "sk_bob");
 
 	proj E_bob;
+	init_counters();	// counters of additions, squarings, and multiplications are set as zero
 	c0 = get_cycles();
 	assert(csidh(E_bob, sk_bob, E));
 	c1 = get_cycles();
 	fp_print(E_bob[0], NUMBER_OF_WORDS, 0, "E_bob_a ");
 	fp_print(E_bob[1], NUMBER_OF_WORDS, 0, "E_bob_ad");
 	printf("clock cycles: %3.03lf\n", ( 1.0 * (c1 - c0)) / (1000000.0));
-	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n", FP_MUL_COMPUTED, FP_SQR_COMPUTED, FP_ADD_COMPUTED);
+	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n\n", fpmul, fpsqr, fpadd);
 
 
 	printf("\n");	
@@ -98,24 +96,26 @@ int main()
 	printf("Second step: Alice a Bob compute the shared secret by using the public curves of Bob and Alice, respectively\n");
 	// Alice: shared secret
 	proj ss_alice;
+	init_counters();	// counters of additions, squarings, and multiplications are set as zero
 	c0 = get_cycles();
 	assert(csidh(ss_alice, sk_alice, E_bob));
 	c1 = get_cycles();
 	fp_print(ss_alice[0], NUMBER_OF_WORDS, 0, "ss_alice_a ");
 	fp_print(ss_alice[1], NUMBER_OF_WORDS, 0, "ss_alice_ad");
 	printf("clock cycles: %3.03lf\n", ( 1.0 * (c1 - c0)) / (1000000.0));
-	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n", FP_MUL_COMPUTED, FP_SQR_COMPUTED, FP_ADD_COMPUTED);
+	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n\n", fpmul, fpsqr, fpadd);
 
 	printf("\n");
 	// Bob: shared secret
 	proj ss_bob;
+	init_counters();	// counters of additions, squarings, and multiplications are set as zero
 	c0 = get_cycles();
 	assert(csidh(ss_bob, sk_bob, E_alice));
 	c1 = get_cycles();
 	fp_print(ss_bob[0], NUMBER_OF_WORDS, 0, "ss_bob_a ");
 	fp_print(ss_bob[1], NUMBER_OF_WORDS, 0, "ss_bob_ad");
 	printf("clock cycles: %3.03lf\n", ( 1.0 * (c1 - c0)) / (1000000.0));
-	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n", FP_MUL_COMPUTED, FP_SQR_COMPUTED, FP_ADD_COMPUTED);
+	printf("Number of field operations computed: (%lu)M + (%lu)S + (%lu)a\n\n", fpmul, fpsqr, fpadd);
 	
 	printf("\n");
 	printf("------------------------------------------------------------------------------------------------------------\n");

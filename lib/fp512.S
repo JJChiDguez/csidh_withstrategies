@@ -27,8 +27,28 @@ R_squared_mod_p:
     .quad 0x66c1301f632e294d
 
 
+.section .data
+
+.global fpadd
+fpadd:
+     .quad 0
+
+.global fpsqr
+fpsqr:
+     .quad 0
+
+.global fpmul
+fpmul:
+     .quad 0
+
 .section .text
 
+.global init_counters
+init_counters:
+      movq fpadd, 0
+      movq fpsqr, 0
+      movq fpmul, 0
+      ret
 /* Integer addition */
 .u512_add:
     mov rax, [rsi +  0]
@@ -139,12 +159,18 @@ fp_add:
     push rdi
     call .u512_add
     pop rdi
+
+    incq fpadd	/* increasing number of additions performed */
+
     jmp .reduce_once
 
 .global fp_sub
 fp_sub:
     push rdi
     call .u512_sub
+
+    incq fpadd	/* increasing number of additions performed */
+
     pop rdi
     xor rsi, rsi
     xor rdx, rdx
@@ -184,6 +210,8 @@ fp_mul:
     push r15
 
     push rdi
+
+    incq fpmul	/* increasing number of multiplications performed */
 
     mov rdi, rsi
     mov rsi, rdx
@@ -322,7 +350,11 @@ fp_mul:
 fp_sqr:
     /* TODO implement optimized Montgomery squaring */
     mov rdx, rsi
+    
+    decq fpmul	/* decreasing number of multiplications performed */
+    incq fpsqr	/* increasing number of squarings performed */
     jmp fp_mul
+
 
 .fp_sq1:
     mov rsi, rdi

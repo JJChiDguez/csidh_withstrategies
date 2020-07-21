@@ -67,9 +67,6 @@ void yDBL(proj Q, const proj P, const proj A)
 	fp_add(Q[1], Q[0], tmp_0);
 	fp_sub(Q[0], Q[0], tmp_0);
 
-	FP_ADD_COMPUTED += 4;
-	FP_SQR_COMPUTED += 2;
-	FP_MUL_COMPUTED += 4;
 };// Cost : 4M + 2S + 4a
 
 /* ---------------------------------------------------------------------- *
@@ -102,9 +99,6 @@ void yADD(proj R, const proj P, const proj Q, const proj PQ)
 	fp_sub(R[0], tmp_0, tmp_1);
 	fp_add(R[1], tmp_0, tmp_1);
 
-	FP_ADD_COMPUTED += 6;
-	FP_SQR_COMPUTED += 2;
-	FP_MUL_COMPUTED += 4;
 };// Cost : 4M + 2S + 6a
 
 /* ---------------------------------------------------------------------- *
@@ -215,11 +209,6 @@ void elligator(proj T_plus, proj T_minus, const proj A)
 	fp_add(T_minus[1], T_minus[0], Cu2_minus_1);
 	fp_sub(T_minus[0], T_minus[0], Cu2_minus_1);
 
-	FP_ADD_COMPUTED += 15;
-	FP_SQR_COMPUTED += 3;
-	FP_MUL_COMPUTED += 8;
-
-	FP_MUL_COMPUTED += 1;	// This multiplication is for mapping the input u<-{2, ..., (p-1)/2} into the Montgomery domain
 };// Cost : 1(legendre s.) + 8M + 3S + 16a
 
 /* compute [(p+1)/l] P for all l in our list of primes. */

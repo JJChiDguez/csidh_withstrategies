@@ -11,10 +11,6 @@
 typedef uint64_t proj[2][NUMBER_OF_WORDS]	__attribute__((aligned(64)));
 // A curve will be defined as type proj where the first and second entries will be the constants a and (a -d).
 
-uint64_t FP_ADD_COMPUTED,	// Variable used for counting the number of field additions.
-	 FP_SQR_COMPUTED,	// Variable used for counting the number of field squarings.
-         FP_MUL_COMPUTED;	// Variable used for counting the number of field multiplications.
-
 // Framework to be used: the files required must be in the folder: ./inc/fp$(BITLENGTH_OF_P)/
 #include "addc.h"			// Addition chains, Public curve, public points T_{+} and T_{-}, and the list of prime factors l_i's
 

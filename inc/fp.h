@@ -28,13 +28,18 @@
 
 #endif
 
-typedef uint64_t fp[NUMBER_OF_WORDS]      __attribute__((aligned(64)));		// 512-bits integer number in Montgomery domain (To be used with the patching)
+typedef uint64_t fp[NUMBER_OF_WORDS]      __attribute__((aligned(64)));		// 512-bits integer number in Montgomery domain
 
 extern const fp p;
 extern const fp R_mod_p;
 extern const fp R_squared_mod_p;	// required for mapping a random fp element 2 <= u <= (p-1)/2 into the Montgomery domain
 extern const fp p_minus_1_halves;	// (p-1)/2 used for find a random fp element 2 <= u <= (p-1)/2
 
+extern uint64_t fpadd;
+extern uint64_t fpsqr;
+extern uint64_t fpmul;
+
+void init_counters(void);
 // All operations are perfomed in the Montgomery domain
 void fp_cswap(fp x, fp y, uint8_t c);
 
