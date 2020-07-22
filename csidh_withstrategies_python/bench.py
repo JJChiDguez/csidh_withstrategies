@@ -81,7 +81,29 @@ if( sys.argv[1] == 'p512' ):
         
         #sigma, kappa = 1, 10 # when only one strategy is required; that is, m = (10, 10, ..., 10)
         sigma, kappa = 5, 11 # MCR & dummy-free [The given one in MCR18] CSIDH-512
-        
+
+elif( sys.argv[1] == 'p1024'):
+    # Ths branch corresponds with the proposal CSIDH-1024 of https://csidh.isogeny.org/index.html
+    # Simba parameters should be optimized(?)
+
+    if(TYPE == 'wd1'):
+
+        # MCR style (key-space size is 4^130 = 2^260 >= 2^256)
+        m = [3] * n
+        sigma, kappa = 5, 4
+
+    if(TYPE == 'wd2'):
+
+        # OAYT style (using the proposal bounds given in https://csidh.isogeny.org/index.html)
+        m = [2] * n
+        sigma, kappa = 3, 5
+
+    if(TYPE == 'df'):
+
+        # dummy-free style (key-space size is 4^130 = 2^260 >= 2^256)
+        m = [3] * n
+        sigma, kappa = 5, 4
+
 else:
     print("[ERROR]\tMissing bound. To set the maximum number of isogeny constructions, and sigma and kappa from SIMBA method (to add they in ELSE statement in line 85 of file bench.py)")
     exit(11)
