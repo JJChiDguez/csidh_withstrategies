@@ -88,20 +88,29 @@ elif( sys.argv[1] == 'p1024'):
 
     if(TYPE == 'wd1'):
 
-        # MCR style (key-space size is 4^130 = 2^260 >= 2^256)
-        m = [3] * n
+        # ===== MCR style (key-space size is 4^130 = 2^260 >= 2^256)
+        #m = [3] * n
+
+        # ===== Suitable bounds for this work
+        m = [4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         sigma, kappa = 5, 4
 
     if(TYPE == 'wd2'):
 
-        # OAYT style (using the proposal bounds given in https://csidh.isogeny.org/index.html)
-        m = [2] * n
+        # ===== OAYT style (using the proposal bounds given in https://csidh.isogeny.org/index.html)
+        #m = [2] * n
+        
+        # ===== Suitable bounds for this work
+        m = [3, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         sigma, kappa = 3, 5
 
     if(TYPE == 'df'):
 
-        # dummy-free style (key-space size is 4^130 = 2^260 >= 2^256)
-        m = [3] * n
+        # ===== dummy-free style (key-space size is 4^130 = 2^260 >= 2^256)
+        #m = [3] * n
+
+        # ===== Suitable bounds for this work
+        m = [4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         sigma, kappa = 5, 4
 
 else:
@@ -112,10 +121,12 @@ else:
 
 if len(set(m)) > 1:
     # Maximum number of degree-(l_i) isogeny constructions is m_i (different for each l_i)
-    LABEL_m = ''.join(['{0:0{1}d}'.format(m_i,2) for m_i in m ])
+    #LABEL_m = ''.join(['{0:0{1}d}'.format(m_i,2) for m_i in set(m) ])
+    LABEL_m = 'with_different_bounds'
 else:
     # Maximum number of degree-(l_i) isogeny constructions is m (the same for each l_i)
-    LABEL_m = ''.join(['{0:0{1}d}'.format(m_i,2) for m_i in set(m) ])
+    #LABEL_m = ''.join(['{0:0{1}d}'.format(m_i,2) for m_i in set(m) ])
+    LABEL_m = 'with_a_same_bound'
 
 try:
 
