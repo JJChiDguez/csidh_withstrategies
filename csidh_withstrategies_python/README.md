@@ -2,7 +2,7 @@
 
 This implementation corresponds with the work titled _"Optimal strategies for CSIDH"_ by **Jesús-Javier Chi-Domínguez** and **Francisco Rodríguez-Henríquez**.
 
-## Configuration
+## Dependencies
 
 The provided Python3-code requires the package `python3-progress`, `python3-numpy`. Thus, these package can be installed (in Ubuntu distro) by running the next commands
 
