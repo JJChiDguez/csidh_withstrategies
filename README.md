@@ -141,7 +141,7 @@ The Python3-code implementation has its own [README.md](/csidh_withstrategies_py
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GNU general public license - see the [LICENSE](LICENSE) file for details
 
 ## Funding
 
