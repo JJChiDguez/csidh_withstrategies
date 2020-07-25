@@ -31,6 +31,31 @@ FILES_REQUIRED_IN_ACTION_CC=./lib/rng.c \
 OUTPUT_ACTION_CC=./bin/action_timing
 CFLAGS_ACTION_CC=-O3 -funroll-loops -fomit-frame-pointer -m64 -mbmi2 -DFP_$(BITLENGTH_OF_P) -D$(TYPE) -D$(APPROACH) -lm
 
+# -----------------------------------------------------------------------------------------------------------------------
+# Using the files with extension .h and .c provided by  Hutchison et al. 
+INC_DIR_HLKA= -I./inc -I./hlka/
+
+# REQUIRED FOR COSTS
+FILES_REQUIRED_IN_ACTION_HLKA=./lib/rng.c \
+			./lib/fp$(BITLENGTH_OF_P).S \
+			./lib/point_arith.c ./lib/isogenies.c \
+			./hlka/action_simba_withdummy_2.c \
+			./main/action_cost.c
+
+OUTPUT_ACTION_HLKA=./bin/action_cost_hlka
+CFLAGS_ACTION_HLKA=-O3 -funroll-loops -fomit-frame-pointer -m64 -mbmi2 -DFP_$(BITLENGTH_OF_P) -D$(TYPE) -D$(APPROACH) -lm
+
+# REQUIRED FOR CLOCK CYCLES
+FILES_REQUIRED_IN_ACTION_CC_HLKA=./lib/rng.c \
+			./lib/fp$(BITLENGTH_OF_P).S \
+			./lib/point_arith.c ./lib/isogenies.c \
+			./hlka/action_simba_withdummy_2.c \
+			./main/action_timing.c
+
+OUTPUT_ACTION_CC_HLKA=./bin/action_timing_hlka
+CFLAGS_ACTION_CC_HLKA=-O3 -funroll-loops -fomit-frame-pointer -m64 -mbmi2 -DFP_$(BITLENGTH_OF_P) -D$(TYPE) -D$(APPROACH) -lm
+# -----------------------------------------------------------------------------------------------------------------------
+
 # GLOBAL FLAGS
 CFLAGS_ALWAYS= -no-pie
 
@@ -51,8 +76,14 @@ csidh:
 action_cost: 
 	$(CC) $(INC_DIR) $(FILES_REQUIRED_IN_ACTION) -o $(OUTPUT_ACTION) $(CFLAGS_ACTION) $(CFLAGS_ALWAYS)
 
+action_cost_hlka: 
+	$(CC) $(INC_DIR_HLKA) $(FILES_REQUIRED_IN_ACTION_HLKA) -o $(OUTPUT_ACTION_HLKA) $(CFLAGS_ACTION_HLKA) $(CFLAGS_ALWAYS)
+
 action_timing: 
 	$(CC) $(INC_DIR) $(FILES_REQUIRED_IN_ACTION_CC) -o $(OUTPUT_ACTION_CC) $(CFLAGS_ACTION_CC) $(CFLAGS_ALWAYS)
+
+action_timing_hlka: 
+	$(CC) $(INC_DIR_HLKA) $(FILES_REQUIRED_IN_ACTION_CC_HLKA) -o $(OUTPUT_ACTION_CC_HLKA) $(CFLAGS_ACTION_CC_HLKA) $(CFLAGS_ALWAYS)
 
 clean:
 	rm -f ./bin/*

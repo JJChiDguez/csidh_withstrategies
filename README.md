@@ -48,6 +48,17 @@ To be more precise, the provided implementation compares the `SIMBA` method  wit
 
 3. CCCDRS-style (two torsion points and dummy-free approach).
 
+Additionally, we compare our experiments with the following work
+
+```text
+Aaron Hutchinson, Jason LeGrow, Brian Koziel, and Reza Azarderakhsh,
+"Further Optimizations of CSIDH: A Systematic Approach to Efficient Strategies, Permutations, and Bound Vectors"
+Cryptology ePrint Archive, Report 2019/1121. 
+(its eprint version can be dowload at https://eprint.iacr.org/2019/1121)
+```
+
+To be more precise, we use the files `action_simba_withdummy_2.c`,  `simba_withdummy_2.h`, and `addc.h` provided by Hutchinson _et al. (see the directory named `hlka`  and its corresponding [README.md](/hlka/README.md) file).
+
 # Compiling
 
 First, you can use any version of gcc compiler (just set the variable CC as an input of the Makefile [variable CC is optional, gcc is set by default]). To compile the c-code implementation you can do the following steps. 
@@ -122,6 +133,19 @@ Once the desired compilation has been performed, just run
 
 ```bash
 ./bin/action_timing
+```
+
+### Running Hutchinson _et al._ code
+
+Their code corresponds with the SIMBA method (using dummy operations and two torsion points)
+
+```bash
+# Running-time: number of field operations
+make action_cost_hlka BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
+./bin/action_cost_hlka
+# Running-time: number of clock cycles
+make action_timing_hlka BITLENGTH_OF_P=512 TYPE=WITHDUMMY_2 APPROACH=SIMBA
+./bin/action_timing_hlka
 ```
 
 ### Cleaning data
