@@ -15,6 +15,7 @@ The following steps (commands) correspond with an installation on a Ubuntu Linux
 
 ```bash
 sudo apt-get install octave
+sudo apt-get install liboctave-dev
 ```
 
 Once **GNU Octave** has been installed, next step is to download the CVX package from the `cvxr` git repository. That repository requires  `libopenblas-dev` library (the directory `octave_cvx` can be created wherever you decide):
