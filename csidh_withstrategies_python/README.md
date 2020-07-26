@@ -23,24 +23,56 @@ Here, p[NUMBER_OF_BITS] must contain the list of Small Odd Primes: l_1 l_2 l_3 .
 
 ### Example of a run
 
-However, experiments were ran with the 511-bit and 1024-bit primes used in CSIDH-512 CSIDH-1024 protocol implementations given in https://csidh.isogeny.org/index.html.
+However, experiments were ran with CSIDH-512, CSIDH-1024, and CSIDH-1792 protocol proposed in https://csidh.isogeny.org/index.html.
 
 ```bash
+# ---------------------------------------
 # CSIDH-512
+python3 csidh.py p512 wd1 STRATEGY
 python3 csidh.py p512 wd2 STRATEGY
-python3 bench.py p512 wd2 STRATEGY 1024
-# CSIDH-1024
-python3 csidh.py p1024 wd2 STRATEGY
-python3 bench.py p1024 wd2 STRATEGY 1024
+python3 csidh.py p512 df STRATEGY
 
+# Benchmark (CSIDH-512)
+python3 bench.py p512 wd2 STRATEGY 1024
+python3 bench.py p512 wd1 STRATEGY 1024
+python3 bench.py p512 df STRATEGY 1024
+
+# ---------------------------------------
+# CSIDH-1024
+python3 csidh.py p1024 wd1 STRATEGY
+python3 csidh.py p1024 wd2 STRATEGY
+python3 csidh.py p1024 df STRATEGY
+
+# Benchmark (CSIDH-1024)
+python3 bench.py p1024 wd2 STRATEGY 1024
+python3 bench.py p1024 wd1 STRATEGY 1024
+python3 bench.py p1024 df STRATEGY 1024
+
+# ---------------------------------------
+# CSIDH-1792
+python3 csidh.py p1792 wd1 STRATEGY
+python3 csidh.py p1792 wd2 STRATEGY
+python3 csidh.py p1792 df STRATEGY
+
+# Benchmark (CSIDH-1792)
+python3 bench.py p1792 wd2 STRATEGY 1024
+python3 bench.py p1792 wd1 STRATEGY 1024
+python3 bench.py p1792 df STRATEGY 1024
+
+# ---------------------------------------
 # Looking for suitable bounds (CSIDH-512)
 python3 suitable_bounds.py p512 wd2 STRATEGY
 python3 suitable_bounds.py p512 wd1 STRATEGY
 python3 suitable_bounds.py p512 df STRATEGY
+
 # Looking for suitable bounds (CSIDH-1024)
 python3 suitable_bounds.py p1024 wd2 STRATEGY
 python3 suitable_bounds.py p1024 wd1 STRATEGY
 python3 suitable_bounds.py p1024 df STRATEGY
+
+# Looking for suitable bounds (CSIDH-1792)
+python3 suitable_bounds.py p1792 wd2 STRATEGY
+python3 suitable_bounds.py p1792 df STRATEGY
 ```
 
 ### Remarks
@@ -52,3 +84,4 @@ python3 suitable_bounds.py p1024 df STRATEGY
 ## Funding
 
 This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement No 804476).
+
